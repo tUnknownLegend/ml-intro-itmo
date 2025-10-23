@@ -1,0 +1,135 @@
+# Разведочный анализ данных (EDA) для T-ECD датасета
+
+## Введение
+
+В рамках данного домашнего задания был проведен разведочный анализ данных (EDA) для [датасета T-ECD](https://huggingface.co/datasets/t-tech/T-ECD). Анализ включал в себя изучение структуры данных, вычисление базовых статистик, визуализацию распределений, корреляционный анализ и другие методы исследования данных.
+
+## Обзор датасетов
+
+В ходе анализа были загружены и изучены следующие датасеты:
+
+- **users**: 3,500,000 строк, 3 столбца
+- **events**: 6,627,693 строк, 6 столбцов
+
+Также предпринимались попытки загрузить данные из файлов brands.pq и items.pq, но они завершились ошибками.
+
+## Структура данных
+
+### Users датасет
+
+Столбцы:
+- user_id (uint64)
+- socdem_cluster (float64)
+- region (float64)
+
+### Events датасет
+
+Столбцы:
+- timestamp (timedelta64[us])
+- user_id (uint64)
+- item_id (object)
+- subdomain (object)
+- action_type (object)
+- os (object)
+
+## Анализ качества данных
+
+### Пропущенные значения
+
+**Users датасет:**
+- region: 58,917 пропущенных значений (1.68%)
+- socdem_cluster: 5,153 пропущенных значения (0.15%)
+
+**Events датасет:**
+- subdomain: 1,453 пропущенных значения (0.02%)
+
+### Дубликаты
+
+В обоих датасетах дубликаты отсутствуют:
+- users: 0 дубликатов (0.00%)
+- events: 0 дубликатов (0.00%)
+
+## Основные статистики
+
+### Users датасет
+
+**socdem_cluster:**
+- Среднее значение: 12.8190
+- Медиана: 12.0000
+- Стандартное отклонение: 6.4636
+- Мода: 17.0
+
+**region:**
+- Среднее значение: 40.4486
+- Медиана: 37.0000
+- Стандартное отклонение: 29.2757
+- Мода: 2.0
+
+### Events датасет
+
+**timestamp:**
+- Среднее значение: 1254 дней 23:32:14
+- Медиана: 1255 дней 02:36:27
+- Стандартное отклонение: 2 дня 21:08:03
+- Мода: 1256 дней 07:57:50
+
+## Визуализации
+
+### Распределения
+
+![Распределение timestamp](eda_visualizations/events_timestamp_distribution.png)
+![Распределение user_id в events](eda_visualizations/events_user_id_distribution.png)
+![Распределение region](eda_visualizations/users_region_distribution.png)
+![Распределение socdem_cluster](eda_visualizations/users_socdem_cluster_distribution.png)
+
+### Категориальные переменные
+
+![Категории action_type](eda_visualizations/events_action_type_categories.png)
+![Категории subdomain](eda_visualizations/events_subdomain_categories.png)
+![Категории item_id](eda_visualizations/events_item_id_categories.png)
+![Категории region](eda_visualizations/users_region_distribution.png)
+
+### Корреляционные матрицы
+
+![Корреляционная матрица users](eda_visualizations/users_correlation_matrix.png)
+![Корреляционная матрица events](eda_visualizations/events_correlation_matrix.png)
+
+### Пропущенные данные
+
+![Пропущенные данные в users](eda_visualizations/users_missing_data_pattern.png)
+![Пропущенные данные в events](eda_visualizations/events_missing_data_pattern.png)
+
+### Выбросы
+
+![Выбросы timestamp](eda_visualizations/events_timestamp_outliers.png)
+![Выбросы user_id в events](eda_visualizations/events_user_id_outliers.png)
+![Выбросы region](eda_visualizations/users_region_outliers.png)
+![Выбросы socdem_cluster](eda_visualizations/users_socdem_cluster_outliers.png)
+
+### Временные ряды
+
+![События во времени](eda_visualizations/events_time_series.png)
+![События по типам во времени](eda_visualizations/events_time_series_by_type.png)
+
+### Диаграммы рассеяния
+
+![socdem_cluster vs region](eda_visualizations/users_socdem_cluster_vs_region_scatter.png)
+![user_id vs region](eda_visualizations/users_user_id_vs_region_scatter.png)
+![user_id vs socdem_cluster](eda_visualizations/users_user_id_vs_socdem_cluster_scatter.png)
+![timestamp vs user_id](eda_visualizations/events_timestamp_vs_user_id_scatter.png)
+
+## Выводы
+
+1. В датасетах присутствуют пропущенные значения, особенно в переменной region датасета users.
+2. Дубликаты в данных отсутствуют.
+3. Распределения некоторых переменных имеют выраженные особенности, что может потребовать дополнительной обработки.
+4. Временные метки событий охватывают период примерно в 10 дней.
+5. Существует разнообразие типов действий пользователей и поддоменов.
+
+## Рекомендации
+
+1. Обработать пропущенные значения в переменных region и socdem_cluster датасета users.
+2. Рассмотреть возможность трансформации числовых переменных с выраженной асимметрией.
+3. Исследовать выбросы для определения их корректности.
+4. Использовать корреляционный анализ для информирования о выборе признаков при моделировании.
+5. Учитывать временные паттерны в данных событий при создании временных признаков.

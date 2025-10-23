@@ -136,6 +136,11 @@ class EDAAnalyzer:
                     
                     # Additional statistics
                     for col in numerical:
+                        # Skip user_id columns as they are identifiers and statistics are not meaningful
+                        if 'user_id' in col.lower():
+                            self.log_report(f"Skipped {col} - user_id is an identifier, statistics are not meaningful")
+                            continue
+                            
                         if col in df.columns:
                             mean_val = df[col].mean()
                             median_val = df[col].median()
@@ -212,6 +217,11 @@ class EDAAnalyzer:
                 
                 # For numerical variables, create histograms
                 for col in numerical[:5]:  # Limit to first 5 for performance
+                    # Skip user_id columns as they are identifiers and distribution analysis is not meaningful
+                    if 'user_id' in col.lower():
+                        self.log_report(f"Skipped distribution analysis for {col} - user_id is an identifier, distribution analysis is not meaningful")
+                        continue
+                        
                     if col in df.columns and df[col].notna().sum() > 0:
                         plt.figure(figsize=(10, 6))
                         # Handle timedelta columns specially
@@ -338,6 +348,11 @@ class EDAAnalyzer:
                 
                 # Create box plots for numerical variables (limit to first 5)
                 for col in numerical[:5]:
+                    # Skip user_id columns as they are identifiers and outlier detection is not meaningful
+                    if 'user_id' in col.lower():
+                        self.log_report(f"Skipped outlier detection for {col} - user_id is an identifier, outlier detection is not meaningful")
+                        continue
+                        
                     if col in df.columns and df[col].notna().sum() > 0:
                         plt.figure(figsize=(8, 6))
                         plt.boxplot(df[col].dropna())
@@ -362,6 +377,14 @@ class EDAAnalyzer:
                 if len(numerical) >= 2:
                     # Take first 3 numerical columns for pairwise scatter plots
                     cols_to_plot = numerical[:3]
+                    # Filter out user_id columns as scatter plots with them are not meaningful
+                    cols_to_plot = [col for col in cols_to_plot if 'user_id' not in col.lower()]
+                    
+                    # Skip if we don't have enough columns after filtering
+                    if len(cols_to_plot) < 2:
+                        self.log_report(f"Skipped scatter plots for {name} - not enough meaningful numerical columns after filtering out user_id")
+                        continue
+                    
                     for i in range(len(cols_to_plot)):
                         for j in range(i+1, len(cols_to_plot)):
                             col1, col2 = cols_to_plot[i], cols_to_plot[j]

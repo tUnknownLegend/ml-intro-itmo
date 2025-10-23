@@ -1,29 +1,29 @@
-[2025-10-23 02:17:10] Starting comprehensive EDA analysis...
-[2025-10-23 02:17:10] Starting data loading...
-[2025-10-23 02:17:10] Error loading brands data: Expected all lists to be of size=300 but index 1 had size=0
-[2025-10-23 02:17:10] Loaded users data: (3500000, 3)
-[2025-10-23 02:17:11] Error loading items data: Expected all lists to be of size=300 but index 2417 had size=0
-[2025-10-23 02:17:11] Found 59 event files
-[2025-10-23 02:17:12] Loaded 10 event files...
-[2025-10-23 02:17:13] Combined events data: (6627693, 6)
-[2025-10-23 02:17:13] Data loading completed.
-[2025-10-23 02:17:13] Examining data structure...
-[2025-10-23 02:17:13] 
+[2025-10-24 02:05:35] Starting comprehensive EDA analysis...
+[2025-10-24 02:05:35] Starting data loading...
+[2025-10-24 02:05:35] Error loading brands data: Expected all lists to be of size=300 but index 1 had size=0
+[2025-10-24 02:05:35] Loaded users data: (3500000, 3)
+[2025-10-24 02:05:41] Error loading items data: Expected all lists to be of size=300 but index 2417 had size=0
+[2025-10-24 02:05:41] Found 59 event files
+[2025-10-24 02:05:43] Loaded 10 event files...
+[2025-10-24 02:05:43] Combined events data: (6627693, 6)
+[2025-10-24 02:05:43] Data loading completed.
+[2025-10-24 02:05:43] Examining data structure...
+[2025-10-24 02:05:43] 
 --- USERS DATASET ---
-[2025-10-23 02:17:13] Shape: (3500000, 3)
-[2025-10-23 02:17:13] Columns: ['user_id', 'socdem_cluster', 'region']
-[2025-10-23 02:17:13] Data types:
+[2025-10-24 02:05:43] Shape: (3500000, 3)
+[2025-10-24 02:05:43] Columns: ['user_id', 'socdem_cluster', 'region']
+[2025-10-24 02:05:43] Data types:
 user_id            uint64
 socdem_cluster    float64
 region            float64
 dtype: object
-[2025-10-23 02:17:13] Numerical columns: ['user_id', 'socdem_cluster', 'region']
-[2025-10-23 02:17:13] Categorical columns: []
-[2025-10-23 02:17:13] 
+[2025-10-24 02:05:43] Numerical columns: ['user_id', 'socdem_cluster', 'region']
+[2025-10-24 02:05:43] Categorical columns: []
+[2025-10-24 02:05:43] 
 --- EVENTS DATASET ---
-[2025-10-23 02:17:13] Shape: (6627693, 6)
-[2025-10-23 02:17:13] Columns: ['timestamp', 'user_id', 'item_id', 'subdomain', 'action_type', 'os']
-[2025-10-23 02:17:13] Data types:
+[2025-10-24 02:05:43] Shape: (6627693, 6)
+[2025-10-24 02:05:43] Columns: ['timestamp', 'user_id', 'item_id', 'subdomain', 'action_type', 'os']
+[2025-10-24 02:05:43] Data types:
 timestamp      timedelta64[us]
 user_id                 uint64
 item_id                 object
@@ -31,13 +31,13 @@ subdomain               object
 action_type             object
 os                      object
 dtype: object
-[2025-10-23 02:17:13] Numerical columns: ['timestamp', 'user_id']
-[2025-10-23 02:17:13] Categorical columns: ['item_id', 'subdomain', 'action_type', 'os']
-[2025-10-23 02:17:13] Data structure examination completed.
-[2025-10-23 02:17:13] Calculating basic statistics...
-[2025-10-23 02:17:13] 
+[2025-10-24 02:05:44] Numerical columns: ['timestamp', 'user_id']
+[2025-10-24 02:05:44] Categorical columns: ['item_id', 'subdomain', 'action_type', 'os']
+[2025-10-24 02:05:44] Data structure examination completed.
+[2025-10-24 02:05:44] Calculating basic statistics...
+[2025-10-24 02:05:44] 
 --- USERS STATISTICS ---
-[2025-10-23 02:17:14] Descriptive statistics:
+[2025-10-24 02:05:44] Descriptive statistics:
             user_id  socdem_cluster        region
 count  3.500000e+06    3.494847e+06  3.441083e+06
 mean   4.497132e+07    1.281904e+01  4.044861e+01
@@ -47,12 +47,12 @@ min    3.000000e+00    0.000000e+00  0.000000e+00
 50%    4.496408e+07    1.200000e+01  3.700000e+01
 75%    6.746539e+07    1.900000e+01  6.300000e+01
 max    8.991871e+07    2.100000e+01  9.000000e+01
-[2025-10-23 02:17:15] user_id - Mean: 44971315.9765, Median: 44964078.5000, Std: 25966854.9223, Mode: 3
-[2025-10-23 02:17:15] socdem_cluster - Mean: 12.8190, Median: 12.0000, Std: 6.4636, Mode: 17.0
-[2025-10-23 02:17:16] region - Mean: 40.4486, Median: 37.0000, Std: 29.2757, Mode: 2.0
-[2025-10-23 02:17:16] 
+[2025-10-24 02:05:44] Skipped user_id - user_id is an identifier, statistics are not meaningful
+[2025-10-24 02:05:44] socdem_cluster - Mean: 12.8190, Median: 12.0000, Std: 6.4636, Mode: 17.0
+[2025-10-24 02:05:44] region - Mean: 40.4486, Median: 37.0000, Std: 29.2757, Mode: 2.0
+[2025-10-24 02:05:44] 
 --- EVENTS STATISTICS ---
-[2025-10-23 02:17:16] Descriptive statistics:
+[2025-10-24 02:05:44] Descriptive statistics:
                        timestamp       user_id
 count                    6627693  6.627693e+06
 mean   1254 days 23:32:14.131838  4.499779e+07
@@ -62,74 +62,79 @@ min    1250 days 00:00:00.075295  2.220000e+02
 50%    1255 days 02:36:27.214202  4.506397e+07
 75%    1257 days 11:09:14.637481  6.735185e+07
 max    1259 days 23:59:59.924127  8.991863e+07
-[2025-10-23 02:17:17] timestamp - Mean: 1254, Median: 1255, Std: 2, Mode: 1256 days 07:57:50.190858
-[2025-10-23 02:17:18] user_id - Mean: 44997790.4054, Median: 45063967.0000, Std: 25955906.2104, Mode: 49053438
-[2025-10-23 02:17:18] Basic statistics calculation completed.
-[2025-10-23 02:17:18] Analyzing missing values...
-[2025-10-23 02:17:18] 
+[2025-10-24 02:05:46] timestamp - Mean: 1254, Median: 1255, Std: 2, Mode: 1256 days 07:57:50.190858
+[2025-10-24 02:05:46] Skipped user_id - user_id is an identifier, statistics are not meaningful
+[2025-10-24 02:05:46] Basic statistics calculation completed.
+[2025-10-24 02:05:46] Analyzing missing values...
+[2025-10-24 02:05:46] 
 --- USERS MISSING VALUES ---
-[2025-10-23 02:17:18] Missing values:
+[2025-10-24 02:05:46] Missing values:
                 Missing Count  Percentage
 region                  58917    1.683343
 socdem_cluster           5153    0.147229
-[2025-10-23 02:17:22] Saved missing data pattern visualization for users
-[2025-10-23 02:17:22] 
+[2025-10-24 02:05:51] Saved missing data pattern visualization for users
+[2025-10-24 02:05:51] 
 --- EVENTS MISSING VALUES ---
-[2025-10-23 02:17:23] Missing values:
+[2025-10-24 02:05:51] Missing values:
            Missing Count  Percentage
 subdomain           1453    0.021923
-[2025-10-23 02:17:40] Saved missing data pattern visualization for events
-[2025-10-23 02:17:40] Missing values analysis completed.
-[2025-10-23 02:17:40] Checking for duplicate records...
-[2025-10-23 02:17:40] users - Duplicate records: 0 (0.0000%)
-[2025-10-23 02:17:44] events - Duplicate records: 0 (0.0000%)
-[2025-10-23 02:17:44] Duplicate analysis completed.
-[2025-10-23 02:17:44] Analyzing variable distributions...
-[2025-10-23 02:17:46] Distribution analysis completed.
-[2025-10-23 02:17:46] Performing correlation analysis...
-[2025-10-23 02:17:46] Saved correlation matrix for users
-[2025-10-23 02:17:46] Saved correlation matrix for events
-[2025-10-23 02:17:46] Correlation analysis completed.
-[2025-10-23 02:17:46] Performing time series analysis...
-[2025-10-23 02:17:46] Using 'timestamp' as timestamp column
-[2025-10-23 02:17:47] Saved time series visualization for events
-[2025-10-23 02:17:48] Saved time series by type visualization for events
-[2025-10-23 02:17:48] Time series analysis completed.
-[2025-10-23 02:17:48] Detecting outliers...
-[2025-10-23 02:17:49] Outlier detection completed.
-[2025-10-23 02:17:49] Creating scatter plots...
-[2025-10-23 02:17:50] Scatter plot creation completed.
-[2025-10-23 02:17:50] 
+[2025-10-24 02:06:08] Saved missing data pattern visualization for events
+[2025-10-24 02:06:08] Missing values analysis completed.
+[2025-10-24 02:06:08] Checking for duplicate records...
+[2025-10-24 02:06:09] users - Duplicate records: 0 (0.0000%)
+[2025-10-24 02:06:12] events - Duplicate records: 0 (0.0000%)
+[2025-10-24 02:06:12] Duplicate analysis completed.
+[2025-10-24 02:06:12] Analyzing variable distributions...
+[2025-10-24 02:06:12] Skipped distribution analysis for user_id - user_id is an identifier, distribution analysis is not meaningful
+[2025-10-24 02:06:12] Skipped distribution analysis for user_id - user_id is an identifier, distribution analysis is not meaningful
+[2025-10-24 02:06:14] Distribution analysis completed.
+[2025-10-24 02:06:14] Performing correlation analysis...
+[2025-10-24 02:06:14] Saved correlation matrix for users
+[2025-10-24 02:06:14] Saved correlation matrix for events
+[2025-10-24 02:06:14] Correlation analysis completed.
+[2025-10-24 02:06:14] Performing time series analysis...
+[2025-10-24 02:06:14] Using 'timestamp' as timestamp column
+[2025-10-24 02:06:15] Saved time series visualization for events
+[2025-10-24 02:06:16] Saved time series by type visualization for events
+[2025-10-24 02:06:16] Time series analysis completed.
+[2025-10-24 02:06:16] Detecting outliers...
+[2025-10-24 02:06:16] Skipped outlier detection for user_id - user_id is an identifier, outlier detection is not meaningful
+[2025-10-24 02:06:17] Skipped outlier detection for user_id - user_id is an identifier, outlier detection is not meaningful
+[2025-10-24 02:06:17] Outlier detection completed.
+[2025-10-24 02:06:17] Creating scatter plots...
+[2025-10-24 02:06:17] Skipped scatter plots for events - not enough meaningful numerical columns after filtering out user_id
+[2025-10-24 02:06:17] Scatter plot creation completed.
+[2025-10-24 02:06:17] 
 ============================================================
-[2025-10-23 02:17:50] EDA SUMMARY REPORT
-[2025-10-23 02:17:50] ============================================================
-[2025-10-23 02:17:50] 
+[2025-10-24 02:06:17] EDA SUMMARY REPORT
+[2025-10-24 02:06:17] ============================================================
+[2025-10-24 02:06:17] 
 DATASET OVERVIEW:
-[2025-10-23 02:17:50]   - users: 3500000 rows, 3 columns
-[2025-10-23 02:17:50]   - events: 6627693 rows, 6 columns
-[2025-10-23 02:17:50] 
+[2025-10-24 02:06:17]   - users: 3500000 rows, 3 columns
+[2025-10-24 02:06:17]   - events: 6627693 rows, 6 columns
+[2025-10-24 02:06:17] 
 DATA QUALITY ISSUES:
-[2025-10-23 02:17:50]   - users: 64070 missing values, 0 duplicates
-[2025-10-23 02:17:54]   - events: 1453 missing values, 0 duplicates
-[2025-10-23 02:17:54] 
+[2025-10-24 02:06:17]   - users: 64070 missing values, 0 duplicates
+[2025-10-24 02:06:20]   - events: 1453 missing values, 0 duplicates
+[2025-10-24 02:06:20] 
 KEY FINDINGS:
-[2025-10-23 02:17:54]   - All required datasets have been loaded and analyzed
-[2025-10-23 02:17:54]   - Basic statistics calculated for numerical variables
-[2025-10-23 02:17:54]   - Missing value patterns identified and visualized
-[2025-10-23 02:17:54]   - Distributions of key variables visualized
-[2025-10-23 02:17:54]   - Correlation matrices generated for numerical variables
-[2025-10-23 02:17:54]   - Time series analysis performed on event data
-[2025-10-23 02:17:54]   - Outliers detected and visualized
-[2025-10-23 02:17:54]   - Key variable relationships explored through scatter plots
-[2025-10-23 02:17:54] 
+[2025-10-24 02:06:20]   - All required datasets have been loaded and analyzed
+[2025-10-24 02:06:20]   - Basic statistics calculated for numerical variables
+[2025-10-24 02:06:20]   - Missing value patterns identified and visualized
+[2025-10-24 02:06:20]   - Distributions of key variables visualized
+[2025-10-24 02:06:20]   - Correlation matrices generated for numerical variables
+[2025-10-24 02:06:20]   - Time series analysis performed on event data
+[2025-10-24 02:06:20]   - Outliers detected and visualized
+[2025-10-24 02:06:20]   - Key variable relationships explored through scatter plots
+[2025-10-24 02:06:20] 
 RECOMMENDATIONS:
-[2025-10-23 02:17:54]   - Address missing values based on the identified patterns
-[2025-10-23 02:17:54]   - Investigate and handle duplicate records if necessary
-[2025-10-23 02:17:54]   - Consider transformations for skewed numerical variables
-[2025-10-23 02:17:54]   - Examine outliers to determine if they are valid or erroneous data points
-[2025-10-23 02:17:54]   - Use correlation analysis to inform feature selection for modeling
-[2025-10-23 02:17:54]   - Consider temporal patterns in event data for time-based features
-[2025-10-23 02:17:54] 
+[2025-10-24 02:06:20]   - Address missing values based on the identified patterns
+[2025-10-24 02:06:20]   - Investigate and handle duplicate records if necessary
+[2025-10-24 02:06:20]   - Consider transformations for skewed numerical variables
+[2025-10-24 02:06:20]   - Examine outliers to determine if they are valid or erroneous data points
+[2025-10-24 02:06:20]   - Use correlation analysis to inform feature selection for modeling
+[2025-10-24 02:06:20]   - Consider temporal patterns in event data for time-based features
+[2025-10-24 02:06:20] 
 ============================================================
-[2025-10-23 02:17:54] EDA ANALYSIS COMPLETED SUCCESSFULLY
-[2025-10-23 02:17:54] ============================================================
+[2025-10-24 02:06:20] EDA ANALYSIS COMPLETED SUCCESSFULLY
+[2025-10-24 02:06:20] ============================================================
