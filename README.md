@@ -45,6 +45,8 @@
 - `t_ecd_data/` - Directory where the dataset will be downloaded
 - `.env` - Environment variables file (not included in repo)
 - `requirements.txt` - Python dependencies
+- `eda_visualizations/` - Directory containing EDA results and visualizations
+- `EDA.md` - Comprehensive EDA report in Russian
 
 ## Dataset Information
 
@@ -52,3 +54,10 @@ The project uses the T-ECD dataset from Hugging Face. You can choose between:
 
 - Small version: `dataset/small/`
 - Full version: `dataset/full/` (uncomment in the download script)
+
+## EDA Analysis
+
+The repository includes an exploratory data analysis (EDA) of the T-ECD dataset:
+
+- **Script**: [`scripts/eda_analysis.py`](scripts/eda_analysis.py) - A comprehensive Python script that performs EDA including data loading, basic statistics, data quality checks, and data visualization
+- **Report**: [`EDA.md`](EDA.md) - A detailed report in Russian documenting the findings of the EDA with all generated visualizations
