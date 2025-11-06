@@ -1,6 +1,6 @@
 huggingface_hub
 python-dotenv
-polars
+polars==0.20.0
 tqdm
 pandas
 numpy
@@ -9,3 +9,4 @@ seaborn
 plotly
 pyarrow
 scikit-learn
+fastparquet
