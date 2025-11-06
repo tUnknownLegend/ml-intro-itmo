@@ -1,6 +1,6 @@
 # ML Intro ITMO
 
-#### [Task](https://github.com/pacifikus/itmo_ml_for_science_course/blob/main/HW/hw_1.md)
+#### [Task](https://github.com/pacifikus/itmo_ml_for_science_course/blob/main/readme.md)
 
 
 ## Setup Instructions
