@@ -1,0 +1,10 @@
+huggingface_hub
+python-dotenv
+polars
+tqdm
+pandas
+numpy
+matplotlib
+seaborn
+plotly
+pyarrow
