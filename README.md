@@ -2,7 +2,6 @@
 
 #### [Task](https://github.com/pacifikus/itmo_ml_for_science_course/blob/main/readme.md)
 
-
 ## Setup Instructions
 
 1. **Create a virtual environment:**
@@ -38,6 +37,15 @@
    ```bash
    python3 scripts/download_dataset.py
    ```
+
+6. **macOS users - Install libomp for XGBoost (if needed):**
+   If you're on macOS and encounter an import error with XGBoost related to libomp, you'll need to install the OpenMP library:
+
+   ```bash
+   brew install libomp
+   ```
+
+   This is a dependency required by XGBoost on macOS systems. If you don't have Homebrew installed, you'll need to install it first by following the instructions at [brew.sh](https://brew.sh).
 
 ## Project Structure
 

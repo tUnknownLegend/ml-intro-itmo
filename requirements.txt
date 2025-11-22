@@ -10,3 +10,10 @@ plotly
 pyarrow
 scikit-learn
 fastparquet
+xgboost
+lightgbm
+catboost
+optuna
+shap
+lime
+
