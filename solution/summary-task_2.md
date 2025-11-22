@@ -1,110 +1,106 @@
-# Summary of Task 2: Building and Evaluating an Improved Model
+# Резюме Задачи 2: Построение и оценка улучшенной модели
 
-## Overview of the Task and Approach
+## Обзор
 
-This task focuses on building and evaluating an improved model for a personalized product recommendation system on a marketplace. The goal is to increase user engagement by more accurately ranking products and maximizing views of recommended content.
+Эта задача фокусируется на построении и оценке улучшенной модели для персонализованной системы рекомендации продуктов на маркетплейсе. Цель состоит в увеличении вовлеченности пользователей путем более точного ранжирования продуктов и максимизации просмотров рекомендуемого контента.
 
-The approach involves:
+Подход включает:
 
-- Using regression to predict the number of views a product will receive from a user in the next time window
-- Utilizing user characteristics, product features, and interaction history as input features
-- Employing MAE (Mean Absolute Error) as the primary evaluation metric due to its business interpretability and robustness to outliers
+- Использование регрессии для прогнозирования количества просмотров, которые продукт получит от пользователя в следующем временном окне
+- Использование характеристик пользователя, особенностей продукта и истории взаимодействия в качестве входных признаков
+- Использование MAE (средняя абсолютная ошибка) в качестве основной метрики оценки из-за ее бизнес-интерпретируемости и устойчивости к выбросам
 
-## Key Steps Taken in the Analysis
+## Ключевые этапы анализа
 
-1. **Data Loading and Exploration**: Loaded datasets including brands, users, items, and events data
-2. **Data Quality Improvements**: Addressed missing values, negative prices, data type conversions, and duplicates
-3. **Advanced Feature Engineering**: Created sophisticated features with proper categorical encoding, scaling, and advanced feature creation
-4. **Temporal Dataset Splitting**: Implemented time-consistent data splitting to prevent data leakage
-5. **Temporal Cross-Validation**: Used TimeSeriesSplit for robust model evaluation
-6. **Model Training and Evaluation**: Trained multiple models including Linear Regression, Decision Tree, and Random Forest
-7. **Feature Importance Analysis**: Analyzed which features most influence model predictions
+1. **Загрузка и Исследование Данных**: Загружены наборы данных, включая бренды, пользователей, товары и данные о событиях
+2. **Улучшения Качества Данных**: Решены проблемы с отсутствующими значениями, отрицательными ценами, преобразованиями типов данных и дубликатами
+3. **Продвинутая Инженерия Признаков**: Созданы сложные признаки с надлежащим кодированием категориальных переменных, масштабированием и продвинутым созданием признаков
+4. **Временное Разделение Набора Данных**: Реализовано временное разделение данных для предотвращения утечки данных
+5. **Временная Перекрестная Валидация**: Использован TimeSeriesSplit для надежной оценки модели
+6. **Обучение и Оценка Модели**: Обучены несколько моделей, включая Линейную Регрессию, Дерево Решений и Случайный Лес
+7. **Анализ Важности Признаков**: Проанализировано, какие признаки больше всего влияют на предсказания модели
 
-## Results of Data Preprocessing
+## Результаты аредварительной обработки данных
 
-The preprocessing addressed several data quality issues:
+- **Набор Данных Пользователей**:
+  - Заполнены отсутствующие значения в `region` (1.68% отсутствует) и `socdem_cluster` (0.15% отсутствует) с использованием модального заполнения
+- **Набор Данных Брендов**:
+  - Удалена колонка `embedding` из-за высокого процента отсутствующих значений (73.24%)
+- **Набор Данных Товаров**:
+  - Отрицательные цены заменены на NaN для последующего заполнения
+  - Заполнены отсутствующие значения `price` (0.12% отсутствует) с использованием медианного заполнения
+  - Созданы флаги отсутствия для `category` (41.56% отсутствует) и `subcategory` (53.02% отсутствует)
+  - Удалена колонка `embedding` (0.003% отсутствует) из-за сложности векторных признаков
+- **Набор Данных Событий**:
+  - Заполнены отсутствующие значения `subdomain` (0.02% отсутствает) с использованием модального заполнения
+- **Дубликаты**: Удалены дубликаты из набора данных брендов с использованием соответствующих техник для обработки нехэшируемых типов
 
-- **Users Dataset**:
-  - Imputed missing values in `region` (1.68% missing) and `socdem_cluster` (0.15% missing) using mode imputation
-- **Brands Dataset**:
-  - Removed `embedding` column due to high percentage of missing values (73.24%)
-- **Items Dataset**:
-  - Replaced negative prices with NaN for subsequent imputation
-  - Imputed missing `price` values (0.12% missing) using median imputation
-  - Created missing flags for `category` (41.56% missing) and `subcategory` (53.02% missing)
-  - Removed `embedding` column (0.003% missing) due to complexity of vector features
-- **Events Dataset**:
-  - Imputed missing `subdomain` values (0.02% missing) using mode imputation
-- **Duplicates**: Removed duplicates from the brands dataset using appropriate techniques for handling unhashable types
+## Инжениринг признаков
 
-## Feature Engineering Techniques Used
+1. **Кодирование Категориальных Переменных**:
+   - Частотное кодирование для `users.region` для учета популярности региона
+   - Циклическое кодирование с использованием синуса и косинуса для временных признаков (час, день недели)
 
-Advanced feature engineering was performed to improve model performance:
+2. **Продвинутое Создание Признаков**:
+   - Признаки активности пользователя: `total_events`, `days_since_last_activity`, `activity_recency_score`, `activity_duration_days`
+   - Признаки свежести товара: `item_age_days`, `is_new_item`, `recent_popularity`, `total_views`, `days_since_last_view`, `view_recency_score`
+   - Признаки взаимодействия пользователя и товара: `user_item_view_count`, `view_frequency`, `days_since_last_view`, `view_recency_score`
+   - Временные признаки: `hour_sin`, `hour_cos`, `day_sin`, `day_cos`, `is_morning`, `is_weekend`
 
-1. **Categorical Encoding**:
-   - Frequency encoding for `users.region` to account for region popularity
-   - Cyclical encoding using sine and cosine for temporal features (hour, day of week)
+3. **Масштабирование и Нормализация**:
+   - Логарифмическое преобразование для скошенных признаков (`total_events`, `total_views`)
+   - Стандартизация для всех числовых признаков
+   - Мин-Макс масштабирование для `price` и `item_age_days`
 
-2. **Advanced Feature Creation**:
-   - User activity features: `total_events`, `days_since_last_activity`, `activity_recency_score`, `activity_duration_days`
-   - Item freshness features: `item_age_days`, `is_new_item`, `recent_popularity`, `total_views`, `days_since_last_view`, `view_recency_score`
-   - User-item interaction features: `user_item_view_count`, `view_frequency`, `days_since_last_view`, `view_recency_score`
-   - Temporal features: `hour_sin`, `hour_cos`, `day_sin`, `day_cos`, `is_morning`, `is_weekend`
+## Результаты обучения
 
-3. **Scaling and Normalization**:
-   - Logarithmic transformation for skewed features (`total_events`, `total_views`)
-   - Standardization for all numerical features
-   - Min-Max scaling for `price` and `item_age_days`
+Были обучены и оценены три модели:
 
-## Model Training and Evaluation Results
+1. **Линейная Регрессия** (базовая)
+2. **Регрессор Дерева Решений**
+3. **Регрессор Случайного Леса** (n_estimators=50, max_depth=5)
 
-Three models were trained and evaluated:
+Временная перекрестная валидация была выполнена с использованием TimeSeriesSplit с 3 фолдами, показав:
 
-1. **Linear Regression** (baseline)
-2. **Decision Tree Regressor**
-3. **Random Forest Regressor** (n_estimators=50, max_depth=5)
+- MAE на обучении: ~0.75-0.85
+- MAE на валидации: ~0.85-0.95
+- RMSE на обучении: ~1.2-1.4
+- RMSE на валидации: ~1.4-1.6
+- R² на обучении: ~0.45-0.55
+- R² на валидации: ~0.35-0.45
 
-Temporal cross-validation was performed using TimeSeriesSplit with 3 folds, showing:
+## Сравнение с Базовой Моделью
 
-- Train MAE: ~0.75-0.85
-- Validation MAE: ~0.85-0.95
-- Train RMSE: ~1.2-1.4
-- Validation RMSE: ~1.4-1.6
-- Train R²: ~0.45-0.55
-- Validation R²: ~0.35-0.45
+Модели сравнивались с постоянным базовым прогнозом (среднее значение целевой переменной в обучающем наборе):
 
-## Comparison with Baseline Model
+- Базовая MAE: ~1.05
+- MAE Линейной Регрессии: ~0.95
+- MAE Дерева Решений: ~0.92
+- MAE Случайного Леса: ~0.90
 
-The models were compared against a constant baseline prediction (mean of target variable in training set):
+Все модели превзошли базовую, причем Случайный Лес показал лучшую производительность.
 
-- Baseline MAE: ~1.05
-- Linear Regression MAE: ~0.95
-- Decision Tree MAE: ~0.92
-- Random Forest MAE: ~0.90
+## Результаты Анализа Важности Признаков
 
-All models outperformed the baseline, with Random Forest showing the best performance.
+Анализ важности признаков из модели Случайного Леса выявил наиболее предсказательные признаки:
 
-## Feature Importance Findings
+1. `total_views` - Историческая популярность товаров
+2. `days_since_last_view` - Давность просмотров товаров
+3. `view_recency_score` - Экспоненциально взвешенная оценка давности
+4. `total_events` - Уровень активности пользователя
+5. `price` - Цена продукта
+6. `hour_sin`/`hour_cos` - Временные паттерны
+7. `region_frequency` - Популярность региона пользователя
+8. `category_missing` - Отсутствует ли категория товара
 
-Feature importance analysis from the Random Forest model revealed the most predictive features:
+## Заключение
 
-1. `total_views` - Historical popularity of items
-2. `days_since_last_view` - Recency of item views
-3. `view_recency_score` - Exponentially weighted recency score
-4. `total_events` - User activity level
-5. `price` - Product price
-6. `hour_sin`/`hour_cos` - Temporal patterns
-7. `region_frequency` - User region popularity
-8. `category_missing` - Whether item category is missing
+Улучшенная модель рекомендаций успешно превзошла базовый подход. Модель Случайного Леса с продвинутой инженерией признаков показала лучшую производительность с MAE примерно 0.90 по сравнению с базовой MAE 1.05.
 
-## Conclusion
+Ключевые факторы успеха включали:
 
-The improved recommendation model successfully outperformed the baseline approach. The Random Forest model with advanced feature engineering showed the best performance with an MAE of approximately 0.90 compared to the baseline MAE of 1.05.
+- Правильную обработку временных данных для предотвращения утечки
+- Комплексную инженерию признаков, охватывающую поведение пользователей, характеристики товаров и временные паттерны
+- Соответствующую методологию оценки с использованием временной перекрестной валидации
 
-Key success factors included:
-
-- Proper handling of temporal data to prevent leakage
-- Comprehensive feature engineering capturing user behavior, item characteristics, and temporal patterns
-- Appropriate evaluation methodology using temporal cross-validation
-
-The most influential features were related to item popularity and user activity, suggesting that historical behavior is a strong predictor of future engagement in this recommendation system.
+Наиболее влиятельные признаки были связаны с популярностью товаров и активностью пользователей, что указывает на то, что историческое поведение является сильным предиктором будущей вовлеченности в этой системе рекомендаций.

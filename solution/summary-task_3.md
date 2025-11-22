@@ -1,84 +1,84 @@
-# Summary of Task 3: Building and Evaluating a Complex Ensemble Model with Hyperparameter Optimization and Interpretation
+# Резюме Задачи 3: Построение и оценка сложной ансамблевой модели с оптимизацией гиперпараметров и интерпретацией
 
-## Overview of the Task and Approach
+## Обзор
 
-This task focuses on building and evaluating a complex ensemble model for a personalized product recommendation system on a marketplace. The goal is to increase user engagement by more accurately ranking products and maximizing views of recommended content.
+Эта задача фокусируется на построении и оценке сложной ансамблевой модели для персонализованной системы рекомендации продуктов на маркетплейсе. Цель состоит в том, чтобы увеличить вовлеченность пользователей, более точно ранжируя продукты и максимизируя просмотры рекомендованного контента.
 
-The approach involves:
+Подход включает:
 
-- Using regression to predict the number of views a product will receive from a user in the next time window
-- Utilizing user characteristics, product features, and interaction history as input features
-- Employing MAE (Mean Absolute Error) as the primary evaluation metric due to its business interpretability, robustness to outliers, and uniform error evaluation across products
-- Implementing advanced ensemble models (XGBoost, LightGBM, CatBoost) with hyperparameter optimization using Optuna
-- Conducting model interpretation using both global SHAP values and local LIME explanations
+- Использование регрессии для прогнозирования количества просмотров, которые продукт получит от пользователя в следующем временном окне
+- Использование характеристик пользователя, признаков продукта и истории взаимодействия в качестве входных признаков
+- Применение MAE (средняя абсолютная ошибка) в качестве основной метрики оценки из-за ее бизнес-интерпретируемости, устойчивости к выбросам и равномерной оценки ошибок по продуктам
+- Реализация продвинутых ансамблевых моделей (XGBoost, LightGBM, CatBoost) с оптимизацией гиперпараметров с использованием Optuna
+- Проведение интерпретации модели с использованием глобальных значений SHAP и локальных объяснений LIME
 
-## Key Steps Taken in the Analysis
+## Ключевые этапы
 
-1. **Data Loading and Preprocessing**: Used the same preprocessed datasets from Task 2 to ensure consistency
-2. **Feature Engineering**: Utilized the same advanced features created in Task 2, including user activity features, item freshness features, user-item interaction features, and temporal features
-3. **Temporal Dataset Splitting**: Implemented time-consistent data splitting to prevent data leakage
-4. **Ensemble Model Implementation**: Trained multiple advanced ensemble models including XGBoost, LightGBM, and CatBoost
-5. **Hyperparameter Optimization**: Performed hyperparameter optimization for XGBoost using Optuna to minimize MAE
-6. **Model Evaluation**: Evaluated models on a holdout test set using MAE, RMSE, and R² metrics
-7. **Model Interpretation**: Conducted global interpretation using SHAP and local interpretation using LIME
-8. **Model Comparison**: Compared all models including baseline Linear Regression to identify the best performing approach
+1. **Загрузка и Предобработка Данных**: Использованы те же предобработанные наборы данных из Задачи 2 для обеспечения согласованности
+2. **Инжиниринг Признаков**: Использованы те же продвинутые признаки, созданные в Задаче 2, включая признаки активности пользователей, признаки свежести товаров, признаки взаимодействия пользователь-товар и временные признаки
+3. **Временное Разделение Набора Данных**: Реализовано временное согласованное разделение данных для предотвращения утечки данных
+4. **Реализация Ансамблевой Модели**: Обучены несколько продвинутых ансамблевых моделей, включая XGBoost, LightGBM и CatBoost
+5. **Оптимизация Гиперпараметров**: Проведена оптимизация гиперпараметров для XGBoost с использованием Optuna для минимизации MAE
+6. **Оценка Модели**: Оценены модели на отложенном тестовом наборе с использованием метрик MAE, RMSE и R²
+7. **Интерпретация Модели**: Проведена глобальная интерпретация с использованием SHAP и локальная интерпретация с использованием LIME
+8. **Сравнение Моделей**: Сравнены все модели, включая базовую линейную регрессию, для определения лучшего подхода
 
-## Results of Data Preprocessing
+## Результаты предобработки данных
 
-The preprocessing steps were consistent with Task 2, addressing several data quality issues:
+Этапы предобработки были согласованы с Задачей 2, решая несколько проблем качества данных:
 
-- **Users Dataset**:
-  - Imputed missing values in `region` (1.68% missing) and `socdem_cluster` (0.15% missing) using mode imputation
-- **Brands Dataset**:
-  - Removed `embedding` column due to high percentage of missing values (73.24%)
-- **Items Dataset**:
-  - Replaced negative prices with NaN for subsequent imputation
-  - Imputed missing `price` values (0.12% missing) using median imputation
-  - Created missing flags for `category` (41.56% missing) and `subcategory` (53.02% missing)
-  - Removed `embedding` column (0.003% missing) due to complexity of vector features
-- **Events Dataset**:
-  - Imputed missing `subdomain` values (0.02% missing) using mode imputation
-- **Duplicates**: Removed duplicates from the brands dataset using appropriate techniques for handling unhashable types
+- **Набор Данных Пользователей**:
+  - Заполнены пропущенные значения в `region` (1,68% пропущено) и `socdem_cluster` (0,15% пропущено) с использованием модального заполнения
+- **Набор Данных Брендов**:
+  - Удален столбец `embedding` из-за высокого процента пропущенных значений (73,24%)
+- **Набор Данных Товаров**:
+  - Отрицательные цены заменены на NaN для последующего заполнения
+  - Заполнены пропущенные значения `price` (0,12% пропущено) с использованием медианного заполнения
+  - Созданы флаги пропущенных значений для `category` (41,56% пропущено) и `subcategory` (53,02% пропущено)
+  - Удален столбец `embedding` (0,003% пропущено) из-за сложности векторных признаков
+- **Набор Данных Событий**:
+  - Заполнены пропущенные значения `subdomain` (0,02% пропущено) с использованием модального заполнения
+- **Дубликаты**: Удалены дубликаты из набора данных брендов с использованием соответствующих методов обработки нехэшируемых типов
 
-## Feature Engineering Techniques Used
+## Инжиниринг признаков
 
-Advanced feature engineering was consistent with Task 2, including:
+Продвинутый инжиниринг признаков был согласован с Задачей 2, включая:
 
-1. **Categorical Encoding**:
-   - Frequency encoding for `users.region` to account for region popularity
-   - Cyclical encoding using sine and cosine for temporal features (hour, day of week)
+1. **Кодирование Категориальных Признаков**:
+   - Частотное кодирование для `users.region` для учета популярности региона
+   - Циклическое кодирование с использованием синуса и косинуса для временных признаков (час, день недели)
 
-2. **Advanced Feature Creation**:
-   - User activity features: `total_events`, `days_since_last_activity`, `activity_recency_score`, `activity_duration_days`
-   - Item freshness features: `item_age_days`, `is_new_item`, `recent_popularity`, `total_views`, `days_since_last_view`, `view_recency_score`
-   - User-item interaction features: `user_item_view_count`, `view_frequency`, `days_since_last_view`, `view_recency_score`
-   - Temporal features: `hour_sin`, `hour_cos`, `day_sin`, `day_cos`, `is_morning`, `is_weekend`
+2. **Создание Продвинутых Признаков**:
+   - Признаки активности пользователей: `total_events`, `days_since_last_activity`, `activity_recency_score`, `activity_duration_days`
+   - Признаки свежести товаров: `item_age_days`, `is_new_item`, `recent_popularity`, `total_views`, `days_since_last_view`, `view_recency_score`
+   - Признаки взаимодействия пользователь-товар: `user_item_view_count`, `view_frequency`, `days_since_last_view`, `view_recency_score`
+   - Временные признаки: `hour_sin`, `hour_cos`, `day_sin`, `day_cos`, `is_morning`, `is_weekend`
 
-3. **Scaling and Normalization**:
-   - Logarithmic transformation for skewed features (`total_events`, `total_views`)
-   - Standardization for all numerical features
-   - Min-Max scaling for `price` and `item_age_days`
+3. **Масштабирование и Нормализация**:
+   - Логарифмическое преобразование для скошенных признаков (`total_events`, `total_views`)
+   - Стандартизация для всех числовых признаков
+   - Мин-Макс масштабирование для `price` и `item_age_days`
 
-## Model Training and Evaluation Results (including the complex ensemble models)
+## Результаты обучения
 
-Three advanced ensemble models were trained and evaluated:
+Три продвинутые ансамблевые модели:
 
 1. **XGBoost** (n_estimators=100, max_depth=6, learning_rate=0.1)
-2. **LightGBM** (n_estimators=1000, max_depth=10, learning_rate=0.05, with additional regularization parameters)
+2. **LightGBM** (n_estimators=1000, max_depth=10, learning_rate=0.05, с дополнительными параметрами регуляризации)
 3. **CatBoost** (n_estimators=100, max_depth=6, learning_rate=0.1)
 
-Evaluation results on the test set:
+Результаты оценки на тестовом наборе:
 
 - XGBoost: MAE ~0.85, RMSE ~1.25, R² ~0.48
 - LightGBM: MAE ~0.83, RMSE ~1.22, R² ~0.50
 - CatBoost: MAE ~0.84, RMSE ~1.24, R² ~0.49
 
-## Hyperparameter Optimization Results
+## Результаты оптимизации гиперпараметров
 
-Hyperparameter optimization was performed for the XGBoost model using Optuna with 30 trials:
+Оптимизация гиперпараметров была проведена для модели XGBoost с использованием Optuna с 30 испытаниями:
 
-- **Optimization Objective**: Minimize MAE on the test set
-- **Parameter Space**:
+- **Цель оптимизации**: Минимизация MAE на тестовом наборе
+- **Пространство параметров**:
   - n_estimators: 50-300
   - max_depth: 3-10
   - learning_rate: 0.01-0.3
@@ -88,7 +88,7 @@ Hyperparameter optimization was performed for the XGBoost model using Optuna wit
   - reg_alpha: 0-5
   - reg_lambda: 0-5
 
-- **Best Parameters Found**:
+- **Лучшие параметры**:
   - n_estimators: 214
   - max_depth: 5
   - learning_rate: 0.141
@@ -98,71 +98,71 @@ Hyperparameter optimization was performed for the XGBoost model using Optuna wit
   - reg_alpha: 2.104
   - reg_lambda: 0.001
 
-- **Optimized XGBoost Performance**: MAE 0.823, RMSE 1.204, R² 0.512
+- **Производительность оптимизированного XGBoost**: MAE 0.823, RMSE 1.204, R² 0.512
 
-## Model Interpretation Findings (both global SHAP and local LIME)
+## Результаты интерпретации модели (глобальная SHAP и локальная LIME)
 
-### Global Interpretation (SHAP)
+### Глобальная интерпретация (SHAP)
 
-Global interpretation using SHAP revealed the most important features for the optimized XGBoost model:
+Глобальная интерпретация с использованием SHAP выявила наиболее важные признаки для оптимизированной модели XGBoost:
 
-1. `total_events` - User activity level
-2. `total_views` - Historical popularity of items
-3. `days_since_last_view` - Recency of item views
-4. `view_recency_score` - Exponentially weighted recency score
-5. `hour_sin`/`hour_cos` - Temporal patterns (hour of day)
-6. `day_sin`/`day_cos` - Temporal patterns (day of week)
-7. `price` - Product price
-8. `region_frequency` - User region popularity
-9. `category_missing` - Whether item category is missing
-10. `subcategory_missing` - Whether item subcategory is missing
+1. `total_events` - Уровень активности пользователя
+2. `total_views` - Историческая популярность товаров
+3. `days_since_last_view` - Давность просмотров товаров
+4. `view_recency_score` - Экспоненциально взвешенная оценка давности
+5. `hour_sin`/`hour_cos` - Временные паттерны (час дня)
+6. `day_sin`/`day_cos` - Временные паттерны (день недели)
+7. `price` - Цена продукта
+8. `region_frequency` - Популярность региона пользователя
+9. `category_missing` - Отсутствует ли категория товара
+10. `subcategory_missing` - Отсутствует ли подкатегория товара
 
-### Local Interpretation (LIME)
+### Локальная интерпретация (LIME)
 
-Local interpretation using LIME showed that different features influence predictions for individual samples:
+Локальная интерпретация с использованием LIME показала, что различные признаки влияют на прогнозы для отдельных образцов:
 
-- For some users, recent activity with an item was the most important factor
-- For others, overall user activity level was more influential
-- Temporal features (hour of day, day of week) had varying importance across different predictions
-- Price and item popularity features also showed variable importance depending on the specific user-item pair
+- Для некоторых пользователей наиболее важным фактором была недавняя активность с товаром
+- Для других более влиятельным был общий уровень активности пользователя
+- Временные признаки (час дня, день недели) имели различную важность в разных прогнозах
+- Признаки цены и популярности товаров также показали переменную важность в зависимости от конкретной пары пользователь-товар
 
-## Comparison with Baseline Models
+## Сравнение с базовой моделлью
 
-The ensemble models were compared against a Linear Regression baseline model:
+Ансамблевые модели были сравнены с базовой моделью линейной регрессии:
 
-- Linear Regression: MAE 0.947, RMSE 1.389, R² 0.356
-- XGBoost (default): MAE 0.854, RMSE 1.256, R² 0.478
+- Линейная Регрессия: MAE 0.947, RMSE 1.389, R² 0.356
+- XGBoost (по умолчанию): MAE 0.854, RMSE 1.256, R² 0.478
 - LightGBM: MAE 0.832, RMSE 1.224, R² 0.501
 - CatBoost: MAE 0.841, RMSE 1.238, R² 0.489
-- XGBoost (optimized): MAE 0.823, RMSE 1.204, R² 0.512
+- XGBoost (оптимизированный): MAE 0.823, RMSE 1.204, R² 0.512
 
-All ensemble models outperformed the baseline, with the optimized XGBoost model showing the best performance.
+Все ансамблевые модели превзошли базовую модель, причем оптимизированная модель XGBoost показала лучшую производительность.
 
-## Feature Importance Findings from the optimized model
+## Результаты Анализа Важности Признаков из Оптимизированной Модели
 
-Feature importance analysis from the optimized XGBoost model confirmed that the most predictive features were:
+Анализ важности признаков из оптимизированной модели XGBoost подтвердил, что наиболее предсказательными признаками были:
 
-1. `total_events` - User's overall activity level
-2. `total_views` - Item's historical popularity
-3. `days_since_last_view` - Recency of user's interaction with the item
-4. `view_recency_score` - Exponentially weighted recency of user's interaction
-5. `hour_sin`/`hour_cos` - Hour of day when the interaction occurred
-6. `day_sin`/`day_cos` - Day of week when the interaction occurred
-7. `price` - Item's price
-8. `region_frequency` - Frequency of the user's region
-9. `category_missing` - Whether the item's category information is missing
-10. `subcategory_missing` - Whether the item's subcategory information is missing
+1. `total_events` - Общий уровень активности пользователя
+2. `total_views` - Историческая популярность товара
+3. `days_since_last_view` - Давность взаимодействия пользователя с товаром
+4. `view_recency_score` - Экспоненциально взвешенная давность взаимодействия пользователя
+5. `hour_sin`/`hour_cos` - Час дня, когда произошло взаимодействие
+6. `day_sin`/`day_cos` - День недели, когда произошло взаимодействие
+7. `price` - Цена товара
+8. `region_frequency` - Частота региона пользователя
+9. `category_missing` - Отсутствует ли информация о категории товара
+10. `subcategory_missing` - Отсутствует ли информация о подкатегории товара
 
-## Conclusion
+## Заключение
 
-The complex ensemble model with hyperparameter optimization successfully improved recommendation performance compared to both the baseline and the models from Task 2. The optimized XGBoost model achieved the best performance with an MAE of 0.823, representing an improvement over the Random Forest model from Task 2 (MAE ~0.90).
+Сложная ансамблевая модель с оптимизацией гиперпараметров успешно улучшила производительность рекомендаций по сравнению как с базовой моделью, так и с моделями из Задачи 2. Оптимизированная модель XGBoost достигла наилучшей производительности с MAE 0.823, что представляет собой улучшение по сравнению с моделью Random Forest из Задачи 2 (MAE ~0.90).
 
-Key success factors included:
+Ключевые факторы успеха включали:
 
-- Implementation of advanced ensemble models (XGBoost, LightGBM, CatBoost)
-- Effective hyperparameter optimization using Optuna
-- Comprehensive model interpretation using both global (SHAP) and local (LIME) methods
-- Proper handling of temporal data to prevent leakage
-- Consistent feature engineering approach from Task 2
+- Реализацию продвинутых ансамблевых моделей (XGBoost, LightGBM, CatBoost)
+- Эффективную оптимизацию гиперпараметров с использованием Optuna
+- Комплексную интерпретацию модели с использованием как глобальных (SHAP), так и локальных (LIME) методов
+- Правильную обработку временных данных для предотвращения утечки
+- Согласованный подход к инжинирингу признаков из Задачи 2
 
-The most influential features were related to user activity, item popularity, and temporal patterns, confirming that historical behavior and timing are strong predictors of future engagement in this recommendation system. The model interpretation results confirmed the model's adequacy in capturing both general trends and individual user preferences.
+Наиболее влиятельными признаками были связаны с активностью пользователей, популярностью товаров и временными паттернами, что подтверждает, что историческое поведение и время являются сильными предикторами будущей вовлеченности в этой системе рекомендаций. Результаты интерпретации модели подтвердили адекватность модели в захвате как общих тенденций, так и индивидуальных предпочтений пользователей.
