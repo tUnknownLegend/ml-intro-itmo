@@ -1,6 +1,6 @@
 huggingface_hub
 python-dotenv
-polars
+polars==0.20.0
 tqdm
 pandas
 numpy
@@ -8,3 +8,12 @@ matplotlib
 seaborn
 plotly
 pyarrow
+scikit-learn
+fastparquet
+xgboost
+lightgbm
+catboost
+optuna
+shap
+lime
+
